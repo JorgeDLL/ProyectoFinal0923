@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Banner flotante-->
+<style type='text/css'>
+  #anuncio {
+  position: absolute;
+  border: 0px;
+  padding: 2px;
+  width: 300px;
+  height: 80px;
+  visibility: hidden;
+  z-index: 200;
+  top: 27px;
+  left: 13px;
+  }
+  </style>
+  
+  
+  <script type='text/javascript'>
+  //<![CDATA[
+  var persistclose=0 //set to 0 or 1. 1 means once the bar is manually closed, it will remain closed for browser session
+  var startX = 30 //set x offset of bar in pixels
+  var startY = 5 //set y offset of bar in pixels
+  var verticalpos="fromtop" //enter "fromtop" or "frombottom"
+  
+  function iecompattest(){
+  return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+  }
+  
+  function get_cookie(Name) {
+  var search = Name + "="
+  var returnvalue = "";
+  if (document.cookie.length > 0) {
+  offset = document.cookie.indexOf(search)
+  if (offset != -1) {
+  offset += search.length
+  end = document.cookie.indexOf(";", offset);
+  if (end == -1) end = document.cookie.length;
+  returnvalue=unescape(document.cookie.substring(offset, end))
+  }
+  }
+  return returnvalue;
+  }
+  
+  function closebar(){
+  if (persistclose)
+  document.cookie="remainclosed=1"
+  document.getElementById("anuncio").style.visibility="hidden"
+  }
+  
+  function staticbar(){
+  barheight=document.getElementById("anuncio").offsetHeight
+  var ns = (navigator.appName.indexOf("Netscape") != -1) || window.opera;
+  var d = document;
+  function ml(id){
+  var el=d.getElementById(id);
+  if (!persistclose || persistclose && get_cookie("remainclosed")=="")
+  el.style.visibility="visible"
+  if(d.layers)el.style=el;
+  el.sP=function(x,y){this.style.left=x+"px";this.style.top=y+"px";};
+  el.x = startX;
+  if (verticalpos=="fromtop")
+  el.y = startY;
+  else{
+  el.y = ns ? pageYOffset + innerHeight : iecompattest().scrollTop + iecompattest().clientHeight;
+  el.y -= startY;
+  }
+  return el;
+  }
+  window.stayTopLeft=function(){
+  if (verticalpos=="fromtop"){
+  var pY = ns ? pageYOffset : iecompattest().scrollTop;
+  ftlObj.y += (pY + startY - ftlObj.y)/8;
+  }
+  else{
+  var pY = ns ? pageYOffset + innerHeight - barheight: iecompattest().scrollTop + iecompattest().clientHeight - barheight;
+  ftlObj.y += (pY - startY - ftlObj.y)/8;
+  }
+  ftlObj.sP(ftlObj.x, ftlObj.y);
+  setTimeout("stayTopLeft()", 10);
+  }
+  ftlObj = ml("anuncio");
+  stayTopLeft();
+  }
+  if (window.addEventListener)
+  window.addEventListener("load", staticbar, false)
+  else if (window.attachEvent)
+  window.attachEvent("onload", staticbar)
+  else if (document.getElementById)
+  window.onload=staticbar
+  //]]>
+  </script>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" type="text/css" href="/Estilos/app.css" title="style" />
+  <link rel="stylesheet" type="text/css" href="/Estilos/bootstrap.min.css" title="style" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+     
+  <title>Proyecto Final</title>
+</head>
+
+<body>
+<!--Banner-->
+  <div id='anuncio'>
+    <a href='Javascript:void' onClick='closebar(); return false'><img align='right' border='0' src='/imagenes/icono-cerrar.png'/></a><br />
+    <a href='https://www.amazon.com.mx/GOMYHOME-Terciopelo-Individual-Estables-Dormitorio/dp/B0BJZDJNTH?ref_=ast_sto_dp&th=1'><img src='/imagenes/banderaicono.jpeg'/></a>
+    <div style='background:hwb(144 6% 26%);color:#FFF;border:3px solid hsl(0, 95%, 49%);padding:5px;text-align:center;font-size:15px;'>¡10% Descuento por mes patrio!</div></a>
+    </div>
+
+<!--Header-->
+
+  <div class="header">
+    <h1>Mublería <span style="color: #027bc0">Contemporanea</span></h1>
+  </div>   
+
+<!--Navbar-->
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <img src="/imagenes/iconoSillon.jpeg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="#">Barra de navegación</a>
+        
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/html/index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="">Productos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="https://www.amazon.com.mx/stores/GOMYHOME/page/C1766DB8-CFD0-4325-99F4-564678C21712?ref_=ast_bln">Tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/html/galeria.html">Galería</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/html/form.html">Contacto</a>
+          </li>
+          <!--Opciones futuras en Navbar-->
+          <!--link
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          -->
+
+          <!--dropdown
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        -->
+
+          <!--Disable
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li>
+          -->
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+</nav>
+
+<!--hero image-->
+
+<section id="hero">
+  <div class="herocontainer">
+      <div class="hero-image">
+          <div class="hero-text">
+              <h2 style="font-size:6vw">Colección Otoño</h2>
+              <p style="font-size: 4vw;">Espacios contemporaneos y confortables</p>
+              <button>Catafíxialos</button>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!--titulo2-->
+<br>
+<div class="titulo2">
+    <h2>Nuestros productos</h2>
+</div>
+<br>
+
+<!--productos-->
+
+<section id="products" class="contenedor1">
+  
+<!--seccion1  
+  <div style="justify-content: center;">
+      <div class="foto1">
+          <img src="/imagenes/producto1.jpg" alt="foto 1" style="max-width: 100%;">
+      </div>
+      <div class="texto1">
+          <div>
+              <h2 class="card-title">Recámara Deco-Nuovo</h2>
+              <p>Fabricada en madera de cedro, colchón ortopédico de memoria y juego de cama con edredón incluido</p>
+              <p>Se adapta a cualquier espacio.</p>
+              <h5 class="card-title">$45,000</h5>
+              <button type="button" class="btn btn-primary">Comprar</button>
+          </div>
+      </div>
+  </div>
+-->
+<div class="productouno">
+  <div class="foto1">
+      <img src="/imagenes/producto1.jpg" alt="foto 1" style="max-width: 100%;">
+  </div>
+  <div class="texto1">
+      <div>
+          <h2 class="card-title">Recámara Deco-Nuovo</h2>
+          <p>Fabricada en madera de cedro, colchón ortopédico de memoria y juego de cama con edredón incluido</p>
+          <p>Se adapta a cualquier espacio.</p>
+          <h5 class="card-title">$45,000</h5>
+          <br>
+          <button type="button" class="btn btn-primary">Comprar</button>
+      </div>
+  </div>
+</div>
+
+
+  <div><br></div>
+
+  <!--seccion2-->
+  <div class="grid1">
+      <div>
+          <div class="card" style="width: 100%;">
+              <img src="/imagenes/producto2.jpg" class="card-img-top" alt="producto2">
+              <div class="card-body; texto1">
+                  <h5 class="card-title">Juego Amsterdam</h5>
+                  <p class="card-text">Sillón tapizado en lino y credenza de madera</p>
+                  <h5 class="card-title">$33,000</h5>
+                  <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
+          </div>
+      </div>
+      <div>
+          <div class="card" style="width: 100%;">
+              <img src="/imagenes/producto3.jpg" class="card-img-top" alt="producto3">
+              <div class="card-body; texto1">
+                  <h5 class="card-title">Recámara Keyser</h5>
+                  <p class="card-text">Base, buros cilíndricos, madera de Nogal</p>
+                  <h5 class="card-title">$38,000</h5>
+                  <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div><br></div>
+
+<!--seccion3-->
+  <div class="grid2">
+      <div>
+          <div class="card" style="width: 100%; height: 100%;">
+              <img src="/imagenes/producto4.jpg" class="card-img-top" alt="producto4">
+              <div class="card-body; texto1">
+                  <h5 class="card-title">Sala Belgrado</h5>
+                  <p class="card-text">Sofá de 3 piezas, cojines incluidos.</p>
+                  <h5 class="card-title">$29,000</h5>
+                  <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
+          </div>
+      </div>
+
+      <div>
+          <div class="card" style="width: 100%; height: 100%;">
+              <img src="/imagenes/producto5.jpg" class="card-img-top" alt="Producto5">
+              <div class="card-body; texto1">
+                  <h5 class="card-title">Estancia Bologna</h5>
+                  <p class="card-text">Juego sillón, mesa de centro y base acabado nogal.</p>
+                  <h5 class="card-title">$38,000</h5>
+                  <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
+          </div>
+      </div>
+
+      <div>
+          <div class="card" style="width: 100%; height: 100%;">
+              <img src="/imagenes/producto6.jpg" class="card-img-top" alt="producto6">
+              <div class="card-body; texto1">
+                  <h5 class="card-title">Sofá Chester</h5>
+                  <p class="card-text">Sofá de 2 plazas, estructura de pino con acabado a elegir, forro loneta</p>
+                  <h5 class="card-title">$18,000</h5>
+                  <a href="#" class="btn btn-primary">Comprar</a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</section>
+
+<br><br>
+
+<!--categorias-->
+
+    <section id="Categorias">
+
+      <h2 style="text-align: center; margin: 25px 0 22px 0" ;>Categorías de Productos</h2>
+ 
+      <div class="grid2 botones">
+          <div class="card catego1" style="width: 100%;">
+              <img src="/imagenes/categoria1.jpg" class="card-img-top" alt="catego1">
+              <div class="card-body; textocatego">
+                  <h5 class="card-title; catof"><a href="#">Oficina</a></h5>
+              </div>
+          </div>
+          <div class="card catego2" style="width: 100%;">
+              <img src="/imagenes/categoria2.jpg" class="card-img-top" alt="catego2">
+              <div class="card-body; textocatego">
+                  <h5 class="card-title; cathog"><a href="#">Hogar</a></h5>
+              </div>
+          </div>
+          <div class="card catego3" style="width: 100%;">
+              <img src="/imagenes/categoria3.jpg" class="card-img-top" alt="catego3">
+              <div class="card-body; textocatego">
+                  <h5 class="card-title"><a href="#">Cocina</a></h5>
+              </div>
+          </div>
+      </div>
+      <div><br style="margin: 10px 0px 10px 0px;"></div>
+  </section>
+
+  <!--footer-->
+
+  <footer>
+       
+    <div class="contenedornav">
+        <nav id="navfinal" class="botones">
+            <div class="lsfooter">
+                <ul id="ulfinal">
+                    <h3>Categorías</h3>
+                    <li><a href="#">Cocina</a></li>
+                    <li><a href="#">Oficina</a></li>
+                    <li><a href="#">Jardín</a></li>
+                    <li><a href="#">Cochera</a></li>
+                    <li><a href="#">Dormitorios</a></li>
+                </ul>
+            </div>
+            <div class="lsfooter">
+                <ul id="ulfinal">
+                    <h3>Sobre Nosotros</h3>
+                    <li><a href="#">Cocina</a></li>
+                    <li><a href="#">Visión Misión Valores</a></li>
+                    <li><a href="#">Jardín</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos del Servicio</a></li>
+                </ul>
+            </div>
+            <div class="lsfooter">
+                <ul id="ulfinal">
+                    <h3>Soporte</h3>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Ayuda en Línea</a></li>
+                    <li><a href="#">Confianza y Seguridad</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <br><br>
+    <div style="margin: 20px 0px 40px 0px">
+        <center><h6><i>Todos los derechos reservados.  Muebleria <span style="color:#037bc0;"> Contemporanea SA de CV</span></i></h6></center>
+    </div>
+</footer>
+
+<div style="background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 6px 6px 6px 6px;
+    bottom: 50px;
+    left: auto;
+    margin-left: -120px;
+    padding: 10px 0 0;
+    position: fixed;
+    text-align: center;
+    width: 90px;
+    z-index: 15;"> 
+	<!--Aqui el Codigo-->
+</div>
+
+
+
+
+
+
+</body>
+</html>
